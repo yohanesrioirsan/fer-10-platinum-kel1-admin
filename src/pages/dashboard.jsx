@@ -1,14 +1,8 @@
-// import React from 'react'
-import react, { useState } from 'react'
-import Home from './home'
+import React from 'react'
 
 export default function Dashboard() {
-    const [data, setDate] = useState([])
 
   return (
-    <>
-        <Home data={data}/>
-        <div>dashboard</div>
-    </>
+    <div>dashboard</div>
   )
 }

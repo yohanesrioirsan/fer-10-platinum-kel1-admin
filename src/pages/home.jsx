@@ -1,10 +1,7 @@
 import React from 'react'
 
-export default function Home({data}) {
+export default function Home() {
   return (
-    <>
-    <div>{data}</div>
     <div>home</div>
-    </>
   )
 }
