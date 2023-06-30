@@ -4,6 +4,7 @@ import axios from "axios";
 
 export default function ListCar() {
   const [carData, setCarData] = useState();
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
   const fetchCarData = async () => {
     const response = await axios.get(
@@ -35,6 +36,7 @@ export default function ListCar() {
                 border: "1px solid blue",
                 borderRadius: "2px",
               }}
+              onClick={() => setSelectedCategory("All")}
             >
               All
             </Button>
@@ -43,6 +45,7 @@ export default function ListCar() {
             <Button
               variant="link"
               style={{ border: "1px solid blue", borderRadius: "2px" }}
+              onClick={() => setSelectedCategory("2 - 4 orang")}
             >
               2 - 4 People
             </Button>
@@ -51,6 +54,7 @@ export default function ListCar() {
             <Button
               variant="link"
               style={{ border: "1px solid blue", borderRadius: "2px" }}
+              onClick={() => setSelectedCategory("4 - 6 orang")}
             >
               4 - 6 People
             </Button>
@@ -59,6 +63,7 @@ export default function ListCar() {
             <Button
               variant="link"
               style={{ border: "1px solid blue", borderRadius: "2px" }}
+              onClick={() => setSelectedCategory("6 - 8 orang")}
             >
               6 - 8 People
             </Button>
@@ -68,53 +73,59 @@ export default function ListCar() {
       <div className="cars pt-3">
         <Row>
           {carData && carData.cars && carData.cars.length > 0 ? (
-            carData.cars.map((car) => (
-              <Col lg={3}>
-                <Card className="mb-3">
-                  <Card.Img
-                    src={car.image}
-                    style={{ height: "200px", width: "100%" }}
-                  />
-                  <Card.Body>
-                    <Card.Text>{car.name}</Card.Text>
-                    <Card.Title>Rp {car.price} / Hari</Card.Title>
-                    <Card.Text>{car.category}</Card.Text>
-                    <Card.Text>
-                      Updated At{" "}
-                      {new Date(car.updatedAt).toLocaleString("en-US", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                        hour: "numeric",
-                      })}
-                    </Card.Text>
-                    <div className="d-inline-flex gap-3">
-                      <div>
-                        <Button
-                          variant="link"
-                          style={{
-                            border: "1px solid green",
-                            color: "green",
-                            width: "130px",
-                          }}
-                        >
-                          Delete
-                        </Button>
+            carData.cars
+              .filter((car) =>
+                selectedCategory === "All"
+                  ? true
+                  : car.category === selectedCategory
+              )
+              .map((car) => (
+                <Col lg={3}>
+                  <Card className="mb-3">
+                    <Card.Img
+                      src={car.image}
+                      style={{ height: "200px", width: "100%" }}
+                    />
+                    <Card.Body>
+                      <Card.Text>{car.name}</Card.Text>
+                      <Card.Title>Rp {car.price} / Hari</Card.Title>
+                      <Card.Text>{car.category}</Card.Text>
+                      <Card.Text>
+                        Updated At{" "}
+                        {new Date(car.updatedAt).toLocaleString("en-US", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                          hour: "numeric",
+                        })}
+                      </Card.Text>
+                      <div className="d-inline-flex gap-3">
+                        <div>
+                          <Button
+                            variant="link"
+                            style={{
+                              border: "1px solid green",
+                              color: "green",
+                              width: "130px",
+                            }}
+                          >
+                            Delete
+                          </Button>
+                        </div>
+                        <div>
+                          <Button
+                            className="del-btn"
+                            variant="success"
+                            style={{ width: "130px" }}
+                          >
+                            Edit
+                          </Button>
+                        </div>
                       </div>
-                      <div>
-                        <Button
-                          className="del-btn"
-                          variant="success"
-                          style={{ width: "130px" }}
-                        >
-                          Edit
-                        </Button>
-                      </div>
-                    </div>
-                  </Card.Body>
-                </Card>
-              </Col>
-            ))
+                    </Card.Body>
+                  </Card>
+                </Col>
+              ))
           ) : (
             <div className="text-center">Please Wait...</div>
           )}
