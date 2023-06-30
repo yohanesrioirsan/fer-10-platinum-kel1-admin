@@ -1,8 +1,125 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Button, Container, Card, Row, Col } from "react-bootstrap";
+import axios from "axios";
 
 export default function ListCar() {
+  const [carData, setCarData] = useState();
 
-    return (
-        <div>list-car</div>
+  const fetchCarData = async () => {
+    const response = await axios.get(
+      "https://api-car-rental.binaracademy.org/customer/v2/car"
     );
+    setCarData(response.data);
+  };
+
+  useEffect(() => {
+    fetchCarData();
+  }, []);
+
+  return (
+    <Container>
+      <div className="list-car d-flex   justify-content-between pt-5">
+        <div>
+          <h3>List Car</h3>
+        </div>
+        <div>
+          <Button variant="primary">+ Add New Car</Button>
+        </div>
+      </div>
+      <div className="content pt-3">
+        <div className="category d-flex gap-2">
+          <div>
+            <Button
+              variant="link"
+              style={{
+                border: "1px solid blue",
+                borderRadius: "2px",
+              }}
+            >
+              All
+            </Button>
+          </div>
+          <div>
+            <Button
+              variant="link"
+              style={{ border: "1px solid blue", borderRadius: "2px" }}
+            >
+              2 - 4 People
+            </Button>
+          </div>
+          <div>
+            <Button
+              variant="link"
+              style={{ border: "1px solid blue", borderRadius: "2px" }}
+            >
+              4 - 6 People
+            </Button>
+          </div>
+          <div>
+            <Button
+              variant="link"
+              style={{ border: "1px solid blue", borderRadius: "2px" }}
+            >
+              6 - 8 People
+            </Button>
+          </div>
+        </div>
+      </div>
+      <div className="cars pt-3">
+        <Row>
+          {carData && carData.cars && carData.cars.length > 0 ? (
+            carData.cars.map((car) => (
+              <Col lg={3}>
+                <Card className="mb-3">
+                  <Card.Img
+                    src={car.image}
+                    style={{ height: "200px", width: "100%" }}
+                  />
+                  <Card.Body>
+                    <Card.Text>{car.name}</Card.Text>
+                    <Card.Title>Rp {car.price} / Hari</Card.Title>
+                    <Card.Text>{car.category}</Card.Text>
+                    <Card.Text>
+                      Updated At{" "}
+                      {new Date(car.updatedAt).toLocaleString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                        hour: "numeric",
+                      })}
+                    </Card.Text>
+                    <div className="d-inline-flex gap-3">
+                      <div>
+                        <Button
+                          variant="link"
+                          style={{
+                            border: "1px solid green",
+                            color: "green",
+                            width: "130px",
+                          }}
+                        >
+                          Delete
+                        </Button>
+                      </div>
+                      <div>
+                        <Button
+                          className="del-btn"
+                          variant="success"
+                          style={{ width: "130px" }}
+                        >
+                          Edit
+                        </Button>
+                      </div>
+                    </div>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))
+          ) : (
+            <div className="text-center">Please Wait...</div>
+          )}
+        </Row>
+      </div>
+    </Container>
+  );
 }
