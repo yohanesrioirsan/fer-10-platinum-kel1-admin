@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Button, Container, Card, Row, Col } from "react-bootstrap";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function ListCar() {
   const [carData, setCarData] = useState();
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const navigate = useNavigate();
+
+  const addCar = () => {
+    navigate("/addnew");
+  };
 
   const fetchCarData = async () => {
     const response = await axios.get(
@@ -24,7 +30,9 @@ export default function ListCar() {
           <h3>List Car</h3>
         </div>
         <div>
-          <Button variant="primary">+ Add New Car</Button>
+          <Button variant="primary" onClick={addCar}>
+            + Add New Car
+          </Button>
         </div>
       </div>
       <div className="content pt-3">
