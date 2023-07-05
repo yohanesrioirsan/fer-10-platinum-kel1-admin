@@ -17,14 +17,13 @@ export default function EditCar() {
   });
 
   const [errorMessage, setErrorMessage] = useState("");
-  const accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGJjci5pbyIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTY4ODQ5NzQ5Mn0.MwTVL8MvIR0R61s95gt6lhLaTzk1nIsawhjW7cHUaII";
 
   useEffect(() => {
     const fetchCarData = async () => {
       try {
         const response = await axios.get(`https://api-car-rental.binaracademy.org/admin/car/${carId}`, {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            access_token: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGJjci5pbyIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTY4ODQ5NzQ5Mn0.MwTVL8MvIR0R61s95gt6lhLaTzk1nIsawhjW7cHUaII`,
           },
         });
         const car = response.data;
@@ -55,8 +54,7 @@ export default function EditCar() {
 
       const response = await axios.put(`https://api-car-rental.binaracademy.org/admin/car/${carId}`, formData, {
         headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${accessToken}`,
+          access_token: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGJjci5pbyIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTY4ODQ5NzQ5Mn0.MwTVL8MvIR0R61s95gt6lhLaTzk1nIsawhjW7cHUaII`,
         },
       });
       console.log(response.data);

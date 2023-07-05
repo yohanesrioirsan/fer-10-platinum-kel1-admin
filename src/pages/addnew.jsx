@@ -16,7 +16,6 @@ export default function AddNew() {
   });
 
   const [errorMessage, setErrorMessage] = useState("");
-  const accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGJjci5pbyIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTY4ODQ5NzQ5Mn0.MwTVL8MvIR0R61s95gt6lhLaTzk1nIsawhjW7cHUaII";
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -31,8 +30,7 @@ export default function AddNew() {
 
       const response = await axios.post("https://api-car-rental.binaracademy.org/admin/car", formData, {
         headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${accessToken}`,
+          access_token: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGJjci5pbyIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTY4ODQ5NzQ5Mn0.MwTVL8MvIR0R61s95gt6lhLaTzk1nIsawhjW7cHUaII`,
         },
       });
       console.log(response.data);
