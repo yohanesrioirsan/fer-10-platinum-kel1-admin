@@ -10,10 +10,8 @@ export default function EditCar() {
   const [carData, setCarData] = useState({
     name: "",
     price: 0,
-    image: null,
+    image: "",
     category: "2-4 orang",
-    createdAt: "",
-    updatedAt: "",
   });
 
   const [errorMessage, setErrorMessage] = useState("");
@@ -23,7 +21,7 @@ export default function EditCar() {
       try {
         const response = await axios.get(`https://api-car-rental.binaracademy.org/admin/car/${carId}`, {
           headers: {
-            access_token: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGJjci5pbyIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTY4ODQ5NzQ5Mn0.MwTVL8MvIR0R61s95gt6lhLaTzk1nIsawhjW7cHUaII`,
+            access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGJjci5pbyIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTY4ODQ5NzQ5Mn0.MwTVL8MvIR0R61s95gt6lhLaTzk1nIsawhjW7cHUaII",
           },
         });
         const car = response.data;
@@ -32,8 +30,6 @@ export default function EditCar() {
           price: car.price,
           image: car.image,
           category: car.category,
-          createdAt: car.createdAt,
-          updatedAt: car.updatedAt,
         });
       } catch (error) {
         console.log("Error fetching car data:", error);
@@ -43,22 +39,40 @@ export default function EditCar() {
     fetchCarData();
   }, [carId]);
 
+  const sendRequest = async (formData) => {
+    try {
+      const response = await axios.put(`https://api-car-rental.binaracademy.org/admin/car/${carId}`, formData, {
+        headers: {
+          access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGJjci5pbyIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTY4ODQ5NzQ5Mn0.MwTVL8MvIR0R61s95gt6lhLaTzk1nIsawhjW7cHUaII",
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      console.log(response.data);
+      navigate("/list-car");
+    } catch (error) {
+      console.error(error);
+      setErrorMessage("Terjadi kesalahan pada jaringan atau database.");
+    }
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const formData = new FormData();
       formData.append("name", carData.name);
       formData.append("price", carData.price);
-      formData.append("image", carData.image);
-      formData.append("category", carData.category);
 
-      const response = await axios.put(`https://api-car-rental.binaracademy.org/admin/car/${carId}`, formData, {
-        headers: {
-          access_token: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGJjci5pbyIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTY4ODQ5NzQ5Mn0.MwTVL8MvIR0R61s95gt6lhLaTzk1nIsawhjW7cHUaII`,
-        },
-      });
-      console.log(response.data);
-      navigate("/list-car");
+      if (carData.image) {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(carData.image);
+        fileReader.onloadend = () => {
+          const base64Image = fileReader.result;
+          formData.append("image", base64Image);
+          sendRequest(formData);
+        };
+      } else {
+        sendRequest(formData);
+      }
     } catch (error) {
       console.error(error);
       setErrorMessage("Terjadi kesalahan pada jaringan atau database.");
