@@ -16,9 +16,18 @@ export default function ListCar() {
     navigate(`/editcar/${car.id}`, { state: { car } });
   };
 
+  const config = {
+    headers: {
+      access_token: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGJjci5pbyIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTY4ODU3MTg5NH0.vEcsvllAxWiX-ahwwArLFRr5-QndKjTmIeJTjP9rsa4`,
+    },
+  };
+
   const fetchCarData = async () => {
     try {
-      const response = await axios.get("https://api-car-rental.binaracademy.org/customer/v2/car");
+      const response = await axios.get(
+        "https://api-car-rental.binaracademy.org/admin/v2/car",
+        config
+      );
       setCarData(response.data);
     } catch (error) {
       console.log("Error fetching car data:", error);
@@ -56,17 +65,29 @@ export default function ListCar() {
             </Button>
           </div>
           <div>
-            <Button variant="link" style={{ border: "1px solid blue", borderRadius: "2px" }} onClick={() => setSelectedCategory("2 - 4 orang")}>
+            <Button
+              variant="link"
+              style={{ border: "1px solid blue", borderRadius: "2px" }}
+              onClick={() => setSelectedCategory("2 - 4 orang")}
+            >
               2 - 4 People
             </Button>
           </div>
           <div>
-            <Button variant="link" style={{ border: "1px solid blue", borderRadius: "2px" }} onClick={() => setSelectedCategory("4 - 6 orang")}>
+            <Button
+              variant="link"
+              style={{ border: "1px solid blue", borderRadius: "2px" }}
+              onClick={() => setSelectedCategory("4 - 6 orang")}
+            >
               4 - 6 People
             </Button>
           </div>
           <div>
-            <Button variant="link" style={{ border: "1px solid blue", borderRadius: "2px" }} onClick={() => setSelectedCategory("6 - 8 orang")}>
+            <Button
+              variant="link"
+              style={{ border: "1px solid blue", borderRadius: "2px" }}
+              onClick={() => setSelectedCategory("6 - 8 orang")}
+            >
               6 - 8 People
             </Button>
           </div>
@@ -76,11 +97,18 @@ export default function ListCar() {
         <Row>
           {carData && carData.cars && carData.cars.length > 0 ? (
             carData.cars
-              .filter((car) => (selectedCategory === "All" ? true : car.category === selectedCategory))
+              .filter((car) =>
+                selectedCategory === "All"
+                  ? true
+                  : car.category === selectedCategory
+              )
               .map((car) => (
                 <Col key={car.id} lg={3}>
                   <Card className="mb-3">
-                    <Card.Img src={car.image} style={{ height: "200px", width: "100%" }} />
+                    <Card.Img
+                      src={car.image}
+                      style={{ height: "200px", width: "100%" }}
+                    />
                     <Card.Body>
                       <Card.Text>{car.name}</Card.Text>
                       <Card.Title>Rp {car.price} / Hari</Card.Title>
@@ -108,7 +136,12 @@ export default function ListCar() {
                           </Button>
                         </div>
                         <div>
-                          <Button className="del-btn" variant="success" style={{ width: "130px" }} onClick={() => editCar(car.id)}>
+                          <Button
+                            className="del-btn"
+                            variant="success"
+                            style={{ width: "130px" }}
+                            onClick={() => editCar(car.id)}
+                          >
                             Edit
                           </Button>
                         </div>
