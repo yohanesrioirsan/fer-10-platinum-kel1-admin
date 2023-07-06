@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Toast } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { selectLoading, setLoadingFalse, setLoadingTrue } from "../redux/loadingSlice";
 import cars from "../asset/auth-img.png";
@@ -11,6 +12,7 @@ import { selectCurrentUserdata, setToken, setUserData } from "../redux/authSlice
 
 export default function Login() {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const loading = useSelector(selectLoading);
   const userData = useSelector(selectCurrentUserdata);
   const msg = useSelector(selectMessage);
@@ -42,6 +44,8 @@ export default function Login() {
       dispatch(setMessage({ message: "Berhasil login", status: "success" }));
       dispatch(setUserData({ ...response.data }));
       dispatch(setToken(response.data.access_token));
+      localStorage.setItem("token",response.data.access_token )
+      navigate("/dashboard")
       setTimeout(() => {
         dispatch(setMessageClose());
       }, 3000);

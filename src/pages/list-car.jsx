@@ -40,7 +40,7 @@ export default function ListCar() {
 
   return (
     <Container>
-      <div className="list-car d-flex justify-content-between pt-5">
+      <div className="list-car d-flex justify-content-between pt-5 " style={{ zIndex: '2' }}>
         <div>
           <h3>List Car</h3>
         </div>

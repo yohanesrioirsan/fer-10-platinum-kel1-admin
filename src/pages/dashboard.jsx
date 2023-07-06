@@ -1,11 +1,15 @@
 import React from 'react'
-import DashboardContainer from '../containers/Index'
+import { Container } from 'react-bootstrap'
+import DashboardContainer from '../containers/Dashboard/Index'
 
 export default function DashboardPage() {
 
   return (
-    <div>
-        <DashboardContainer/>
-    </div>
+    // <div>
+<Container>
+
+    <DashboardContainer/>
+</Container>
+    // </div>
   )
 }

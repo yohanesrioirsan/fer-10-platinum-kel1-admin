@@ -25,7 +25,7 @@ export default function Sidebar() {
     const isActive = (path) => location.pathname === path;
 
     return (
-        <aside className="bg-primary " style={sidebarStyle}>
+        <aside className="bg-primary  vh-100" style={sidebarStyle}>
             <div className="sidebar-logo df-center">
                 <span />
             </div>
@@ -37,7 +37,7 @@ export default function Sidebar() {
                         <div className=" ">Dashboard</div>
                     </div>
                 </NavLink>
-                <NavLink to="/cars" style={isActive("/cars") ? activeSidebar : defaultSidebar} className="pb-2 w-100">
+                <NavLink to="/list-car" style={isActive("/list-car") ? activeSidebar : defaultSidebar} className="pb-2 w-100">
                     <div className="d-flex flex-column align-items-center py-2">
                         <FiTruck />
                         <div className=" ">Cars</div>

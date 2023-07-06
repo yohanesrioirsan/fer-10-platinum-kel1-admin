@@ -4,7 +4,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import DashboardTable from "./DashboardTable";
 import DashboardPagination from "./DashboardPagination";
-import { selectTablePageSizeValue, selectTablePageValue, selectTableValue, setTable } from "../redux/tableSlice";
+import { selectTablePageSizeValue, selectTablePageValue, selectTableValue, setTable } from "../../redux/tableSlice";
 
 export default function DashboardContainer() {
     const pageSize = useSelector(selectTablePageSizeValue)

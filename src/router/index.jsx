@@ -14,7 +14,7 @@ export default function Router() {
         <Route path="/" element={<Login />} />
         <Route element={<Layout />}>
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/cars" element={<Dashboard />} />
+          {/* <Route path="/cars" element={<Dashboard />} /> */}
           <Route path="/list-car" element={<ListCar />} />
           <Route path="/addnew" element={<AddNew />} />
           <Route path="/editcar/:carId" element={<EditCar />} />
