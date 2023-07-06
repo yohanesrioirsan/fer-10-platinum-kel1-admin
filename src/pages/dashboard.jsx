@@ -1,8 +1,11 @@
 import React from 'react'
+import DashboardContainer from '../containers/Index'
 
-export default function Dashboard() {
+export default function DashboardPage() {
 
   return (
-    <div>dashboard</div>
+    <div>
+        <DashboardContainer/>
+    </div>
   )
 }
