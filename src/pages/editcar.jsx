@@ -19,11 +19,15 @@ export default function EditCar() {
   useEffect(() => {
     const fetchCarData = async () => {
       try {
-        const response = await axios.get(`https://api-car-rental.binaracademy.org/admin/car/${carId}`, {
-          headers: {
-            access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGJjci5pbyIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTY4ODQ5NzQ5Mn0.MwTVL8MvIR0R61s95gt6lhLaTzk1nIsawhjW7cHUaII",
-          },
-        });
+        const response = await axios.get(
+          `https://api-car-rental.binaracademy.org/admin/car/${carId}`,
+          {
+            headers: {
+              access_token:
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGJjci5pbyIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTY4ODQ5NzQ5Mn0.MwTVL8MvIR0R61s95gt6lhLaTzk1nIsawhjW7cHUaII",
+            },
+          }
+        );
         const car = response.data;
         setCarData({
           name: car.name,
@@ -41,12 +45,17 @@ export default function EditCar() {
 
   const sendRequest = async (formData) => {
     try {
-      const response = await axios.put(`https://api-car-rental.binaracademy.org/admin/car/${carId}`, formData, {
-        headers: {
-          access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGJjci5pbyIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTY4ODQ5NzQ5Mn0.MwTVL8MvIR0R61s95gt6lhLaTzk1nIsawhjW7cHUaII",
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await axios.put(
+        `https://api-car-rental.binaracademy.org/admin/car/${carId}`,
+        formData,
+        {
+          headers: {
+            access_token:
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGJjci5pbyIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTY4ODQ5NzQ5Mn0.MwTVL8MvIR0R61s95gt6lhLaTzk1nIsawhjW7cHUaII",
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       console.log(response.data);
       navigate("/list-car");
     } catch (error) {
@@ -104,7 +113,13 @@ export default function EditCar() {
           </Col>
           <Col sm={4}>
             <Form.Group className="mb-3">
-              <Form.Control type="text" name="name" value={carData.name} onChange={handleChange} required />
+              <Form.Control
+                type="text"
+                name="name"
+                value={carData.name}
+                onChange={handleChange}
+                required
+              />
             </Form.Group>
           </Col>
         </Row>
@@ -117,7 +132,13 @@ export default function EditCar() {
           </Col>
           <Col sm={4}>
             <Form.Group className="mb-3">
-              <Form.Control type="number" name="price" value={carData.price} onChange={handleChange} required />
+              <Form.Control
+                type="number"
+                name="price"
+                value={carData.price}
+                onChange={handleChange}
+                required
+              />
             </Form.Group>
           </Col>
         </Row>
@@ -144,7 +165,13 @@ export default function EditCar() {
           </Col>
           <Col sm={4}>
             <Form.Group className="mb-3">
-              <Form.Control as="select" name="category" value={carData.category} onChange={handleChange} required>
+              <Form.Control
+                as="select"
+                name="category"
+                value={carData.category}
+                onChange={handleChange}
+                required
+              >
                 <option value="2-4 orang">2-4 orang</option>
                 <option value="4-6 orang">4-6 orang</option>
                 <option value="6-8 orang">6-8 orang</option>
@@ -181,7 +208,11 @@ export default function EditCar() {
         >
           Cancel
         </Button>
-        <Button variant="primary" type="submit" style={{ backgroundColor: "#0D28A6" }}>
+        <Button
+          variant="primary"
+          type="submit"
+          style={{ backgroundColor: "#0D28A6" }}
+        >
           Save
         </Button>
       </Form>

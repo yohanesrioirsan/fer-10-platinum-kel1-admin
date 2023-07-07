@@ -18,7 +18,7 @@ export default function ListCar() {
 
   const config = {
     headers: {
-      access_token: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGJjci5pbyIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTY4ODU3MTg5NH0.vEcsvllAxWiX-ahwwArLFRr5-QndKjTmIeJTjP9rsa4`,
+      access_token: localStorage.getItem("token"),
     },
   };
 
@@ -40,7 +40,10 @@ export default function ListCar() {
 
   return (
     <Container>
-      <div className="list-car d-flex justify-content-between pt-5 " style={{ zIndex: '2' }}>
+      <div
+        className="list-car d-flex justify-content-between pt-5 "
+        style={{ zIndex: "2" }}
+      >
         <div>
           <h3>List Car</h3>
         </div>
