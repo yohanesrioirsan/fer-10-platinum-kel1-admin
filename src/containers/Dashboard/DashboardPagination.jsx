@@ -2,7 +2,7 @@ import React from "react";
 import { FormControl } from "react-bootstrap";
 import { PaginationControl } from "react-bootstrap-pagination-control";
 import { useDispatch, useSelector } from "react-redux";
-import { selectTableValue, setPage, setPageSize } from "../redux/tableSlice";
+import { selectTableValue, setPage, setPageSize } from "../../redux/tableSlice";
 
 export default function DashboardPagination() {
     const table = useSelector(selectTableValue)

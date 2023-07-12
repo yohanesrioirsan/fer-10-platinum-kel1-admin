@@ -1,7 +1,7 @@
 import React from "react";
 import { Table } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { selectTableValue } from "../redux/tableSlice";
+import { selectTableValue } from "../../redux/tableSlice";
 
 export default function DashboardTable() {
     const table = useSelector(selectTableValue)
