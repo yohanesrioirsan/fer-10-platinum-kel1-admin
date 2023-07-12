@@ -2,10 +2,18 @@ import React, { useEffect, useState } from "react";
 import { Button, Container, Card, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import DeleteModal from "../components/DeleteModal";
 
 export default function ListCar() {
   const [carData, setCarData] = useState();
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [showModal, setShowModal] = useState(false);
+  const [carId, setCarId] = useState("");
+
+  const handleClose = () => {
+    setShowModal(false);
+  };
+
   const navigate = useNavigate();
 
   const addCar = () => {
@@ -24,11 +32,33 @@ export default function ListCar() {
 
   const fetchCarData = async () => {
     try {
-      const response = await axios.get("https://api-car-rental.binaracademy.org/admin/v2/car", config);
+      const response = await axios.get(
+        "https://api-car-rental.binaracademy.org/admin/v2/car",
+        config
+      );
       setCarData(response.data);
     } catch (error) {
       console.log("Error fetching car data:", error);
     }
+  };
+
+  const deleteCar = async (id) => {
+    try {
+      await axios.delete(
+        `https://api-car-rental.binaracademy.org/admin/car/${id}`,
+        config
+      );
+
+      fetchCarData();
+      setShowModal(false);
+    } catch (error) {
+      console.log("Kesalahan dalam menghapus mobil", error);
+    }
+  };
+
+  const deleteConfirm = (id) => {
+    setCarId(id);
+    setShowModal(true);
   };
 
   useEffect(() => {
@@ -37,9 +67,17 @@ export default function ListCar() {
 
   return (
     <Container>
-      <div className="list-car d-flex justify-content-between pt-5 " style={{ zIndex: "2" }}>
+      <div
+        className="list-car d-flex justify-content-between pt-5 "
+        style={{ zIndex: "2" }}
+      >
         <div>
           <h3>List Car</h3>
+          <DeleteModal
+            showModal={showModal}
+            handleClose={handleClose}
+            deleteCar={() => deleteCar(carId)}
+          />
         </div>
         <div>
           <Button variant="primary" onClick={addCar}>
@@ -62,17 +100,29 @@ export default function ListCar() {
             </Button>
           </div>
           <div>
-            <Button variant="link" style={{ border: "1px solid blue", borderRadius: "2px" }} onClick={() => setSelectedCategory("2 - 4 orang")}>
+            <Button
+              variant="link"
+              style={{ border: "1px solid blue", borderRadius: "2px" }}
+              onClick={() => setSelectedCategory("2 - 4 orang")}
+            >
               2 - 4 People
             </Button>
           </div>
           <div>
-            <Button variant="link" style={{ border: "1px solid blue", borderRadius: "2px" }} onClick={() => setSelectedCategory("4 - 6 orang")}>
+            <Button
+              variant="link"
+              style={{ border: "1px solid blue", borderRadius: "2px" }}
+              onClick={() => setSelectedCategory("4 - 6 orang")}
+            >
               4 - 6 People
             </Button>
           </div>
           <div>
-            <Button variant="link" style={{ border: "1px solid blue", borderRadius: "2px" }} onClick={() => setSelectedCategory("6 - 8 orang")}>
+            <Button
+              variant="link"
+              style={{ border: "1px solid blue", borderRadius: "2px" }}
+              onClick={() => setSelectedCategory("6 - 8 orang")}
+            >
               6 - 8 People
             </Button>
           </div>
@@ -82,11 +132,18 @@ export default function ListCar() {
         <Row>
           {carData && carData.cars && carData.cars.length > 0 ? (
             carData.cars
-              .filter((car) => (selectedCategory === "All" ? true : car.category === selectedCategory))
+              .filter((car) =>
+                selectedCategory === "All"
+                  ? true
+                  : car.category === selectedCategory
+              )
               .map((car) => (
                 <Col key={car.id} lg={3}>
                   <Card className="mb-3">
-                    <Card.Img src={car.image} style={{ height: "200px", width: "100%" }} />
+                    <Card.Img
+                      src={car.image}
+                      style={{ height: "200px", width: "100%" }}
+                    />
                     <Card.Body>
                       <Card.Text>{car.name}</Card.Text>
                       <Card.Title>Rp {car.price} / Hari</Card.Title>
@@ -109,12 +166,18 @@ export default function ListCar() {
                               color: "green",
                               width: "130px",
                             }}
+                            onClick={() => deleteConfirm(car.id)}
                           >
                             Delete
                           </Button>
                         </div>
                         <div>
-                          <Button className="del-btn" variant="success" style={{ width: "130px" }} onClick={() => editCar(car.id)}>
+                          <Button
+                            className="del-btn"
+                            variant="success"
+                            style={{ width: "130px" }}
+                            onClick={() => editCar(car.id)}
+                          >
                             Edit
                           </Button>
                         </div>
