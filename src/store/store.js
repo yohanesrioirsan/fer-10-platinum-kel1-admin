@@ -8,6 +8,7 @@ import authReducer from "../redux/authSlice";
 import loadingSlice from "../redux/loadingSlice";
 import messageSlice from "../redux/messageSlice";
 import tableSlice from "../redux/tableSlice";
+import visualize from "../redux/visualize";
 
 const persistConfig = {
     key: "root",
@@ -22,7 +23,8 @@ export const store = configureStore({
         auth: persistedReducer,
         loading : loadingSlice,
         message: messageSlice,
-        table: tableSlice
+        table: tableSlice,
+        visualize,        
 
     },
     middleware: (getDefaultMiddleware) =>

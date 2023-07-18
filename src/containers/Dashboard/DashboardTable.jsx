@@ -7,7 +7,7 @@ export default function DashboardTable() {
     const table = useSelector(selectTableValue)
     console.log(table)
     return (
-        <div>
+        <div className="pt-4">
             {table && table.table.orders && table.table.orders.length > 0 ? (
                 <Table striped bordered hover>
                     <thead>

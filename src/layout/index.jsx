@@ -11,7 +11,7 @@ export default function Layout() {
       </div>
       <div className="w-100" style={{ marginLeft: "120px" }}>
         <Header />
-        <div style={{ marginTop: "70px" }}>
+        <div style={{ marginTop: "10px" }}>
           <Outlet />
         </div>
       </div>
