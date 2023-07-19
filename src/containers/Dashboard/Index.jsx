@@ -14,7 +14,7 @@ export default function DashboardContainer() {
     const dispatch = useDispatch();
     const fetchAPIOrder = async () => {
         try {
-            const response = await axios.get("https://bootcamp-rent-cars.herokuapp.com/admin/v2/order", {
+            const response = await axios.get("https://api-car-rental.binaracademy.org/admin/v2/order", {
                 params: {
                     page,
                     pageSize,

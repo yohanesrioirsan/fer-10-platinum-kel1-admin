@@ -24,6 +24,7 @@ export default function Chart() {
                         label: "Order Count",
                         data: dataOrder.data.map((item) => item.orderCount),
                         borderWidth: 1,
+                        backgroundColor: '#586b90',
                     },
                 ],
             };
@@ -42,8 +43,6 @@ export default function Chart() {
             ) : (
                 <div>
                     <Bar data={dataChart} />
-                    <p>Total Order</p>
-                    <p>Date</p>
                 </div>
             )}
         </div>

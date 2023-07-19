@@ -8,6 +8,7 @@ export default function Sidebar() {
     const location = useLocation();
     const sidebarStyle = {
         width: "120px",
+        backgroundColor: "#0d28a6",
     };
 
     const logo = {
@@ -25,12 +26,12 @@ export default function Sidebar() {
     const isActive = (path) => location.pathname === path;
 
     return (
-        <aside className="bg-primary  vh-100" style={sidebarStyle}>
+        <aside className=" vh-100" style={sidebarStyle}>
             <div className="sidebar-logo df-center">
                 <span />
             </div>
             <div className="cursor-pointer sidebar d-flex flex-column align-items-center py-2 w-100">
-                <div className="bg-danger mb-4" style={logo} />
+                <div className="bg-secondary my-4" style={logo} />
                 <NavLink to="/dashboard" style={isActive("/dashboard") ? activeSidebar : defaultSidebar} className="pb-2 w-100">
                     <div className="d-flex flex-column align-items-center py-2">
                         <AiOutlineHome />
