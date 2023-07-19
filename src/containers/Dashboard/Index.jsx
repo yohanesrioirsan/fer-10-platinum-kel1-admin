@@ -5,15 +5,16 @@ import { useDispatch, useSelector } from "react-redux";
 import DashboardTable from "./DashboardTable";
 import DashboardPagination from "./DashboardPagination";
 import { selectTablePageSizeValue, selectTablePageValue, selectTableValue, setTable } from "../../redux/tableSlice";
+import DashboardVisualization from "./DashboardVisualization";
 
 export default function DashboardContainer() {
-    const pageSize = useSelector(selectTablePageSizeValue)
-    const page = useSelector(selectTablePageValue)
+    const pageSize = useSelector(selectTablePageSizeValue);
+    const page = useSelector(selectTablePageValue);
 
     const dispatch = useDispatch();
     const fetchAPIOrder = async () => {
         try {
-            const response = await axios.get("https://bootcamp-rent-cars.herokuapp.com/admin/v2/order", {
+            const response = await axios.get("https://api-car-rental.binaracademy.org/admin/v2/order", {
                 params: {
                     page,
                     pageSize,
@@ -26,7 +27,7 @@ export default function DashboardContainer() {
 
             console.log(response);
             if (response.status === 200) {
-                console.log(response.data)
+                console.log(response.data);
                 dispatch(setTable(response.data));
             }
         } catch (error) {
@@ -39,9 +40,17 @@ export default function DashboardContainer() {
     }, [page, pageSize]);
 
     return (
-        <div className="p-5">
-            <h1>Dashboard</h1>
-            <h1>{page}</h1>
+        <div className="px-5">
+            <div className="gap-3 d-flex justify-content-start align-items-center">
+                <div style={{ width: "5px", height: "20px", backgroundColor: "#0d28a6" }} />
+                <div>Rented Car Data Visualization</div>
+            </div>
+            <DashboardVisualization />
+            <h4>Dashboard</h4>
+            <div className="gap-3 d-flex justify-content-start align-items-center">
+                <div style={{ width: "5px", height: "20px", backgroundColor: "#0d28a6" }} />
+                <div>List Order</div>
+            </div>
             <DashboardTable />
             <DashboardPagination />
         </div>
