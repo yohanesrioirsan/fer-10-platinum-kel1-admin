@@ -12,5 +12,6 @@ module.exports = {
     "no-param-reassign": 0,
     "import/no-extraneous-dependencies": 0,
     "react/prop-types": 0,
+    "no-console": 0,
   },
 };
