@@ -103,7 +103,7 @@ export default function ListCar() {
             <Button
               variant="link"
               style={{ border: "1px solid blue", borderRadius: "2px" }}
-              onClick={() => setSelectedCategory("2 - 4 orang")}
+              onClick={() => setSelectedCategory("small")}
             >
               2 - 4 People
             </Button>
@@ -112,7 +112,7 @@ export default function ListCar() {
             <Button
               variant="link"
               style={{ border: "1px solid blue", borderRadius: "2px" }}
-              onClick={() => setSelectedCategory("4 - 6 orang")}
+              onClick={() => setSelectedCategory("medium")}
             >
               4 - 6 People
             </Button>
@@ -121,7 +121,7 @@ export default function ListCar() {
             <Button
               variant="link"
               style={{ border: "1px solid blue", borderRadius: "2px" }}
-              onClick={() => setSelectedCategory("6 - 8 orang")}
+              onClick={() => setSelectedCategory("large")}
             >
               6 - 8 People
             </Button>
