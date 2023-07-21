@@ -78,16 +78,7 @@ export default function EditCar() {
   const handleChange = (event) => {
     if (event.target.name === "image") {
       const file = event.target.files[0];
-      if (file && file.type.startsWith("image/")) {
-        const fileReader = new FileReader();
-        fileReader.readAsDataURL(file);
-        fileReader.onloadend = () => {
-          const base64Image = fileReader.result;
-          setCarData({ ...carData, image: base64Image });
-        };
-      } else {
-        setCarData({ ...carData, image: null });
-      }
+      setCarData({ ...carData, image: file });
     } else {
       setCarData({ ...carData, [event.target.name]: event.target.value });
     }
