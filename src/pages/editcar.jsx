@@ -10,7 +10,7 @@ export default function EditCar() {
   const [carData, setCarData] = useState({
     name: "",
     price: 0,
-    image: "",
+    image: null,
     category: "2-4 orang",
   });
 
@@ -62,18 +62,9 @@ export default function EditCar() {
       const formData = new FormData();
       formData.append("name", carData.name);
       formData.append("price", carData.price);
+      formData.append("image", carData.image);
 
-      if (carData.image) {
-        const fileReader = new FileReader();
-        fileReader.readAsDataURL(carData.image);
-        fileReader.onloadend = () => {
-          const base64Image = fileReader.result;
-          formData.append("image", base64Image);
-          sendRequest(formData);
-        };
-      } else {
-        sendRequest(formData);
-      }
+      sendRequest(formData);
     } catch (error) {
       console.error(error);
       setErrorMessage("Terjadi kesalahan pada jaringan atau database.");
@@ -87,7 +78,16 @@ export default function EditCar() {
   const handleChange = (event) => {
     if (event.target.name === "image") {
       const file = event.target.files[0];
-      setCarData({ ...carData, image: file });
+      if (file && file.type.startsWith("image/")) {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
+        fileReader.onloadend = () => {
+          const base64Image = fileReader.result;
+          setCarData({ ...carData, image: base64Image });
+        };
+      } else {
+        setCarData({ ...carData, image: null });
+      }
     } else {
       setCarData({ ...carData, [event.target.name]: event.target.value });
     }
